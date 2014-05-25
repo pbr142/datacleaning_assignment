@@ -2,7 +2,6 @@
 ## Assigment
 
 ## 1. Merge the training and the test sets to create one data set.
-setwd("D:/Dropbox/MOOC/data_cleaning/Project")
 data_train <- read.table("UCI HAR Dataset/train/x_train.txt", header=FALSE)
 data_test <- read.table("UCI HAR Dataset/test/x_test.txt", header=FALSE)
 data_combined <- rbind(data_train, data_test)
@@ -38,4 +37,3 @@ dataset_mean <- aggregate(x=dataset[,1:79], by=list(subject=as.factor(dataset$su
 
 ## write tidy table to file
 write.table(dataset_mean, "tidy_dataset.txt", sep="\t", col.names=TRUE, row.names=FALSE)
- 
