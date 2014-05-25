@@ -2,25 +2,13 @@ Codebook for tidy_dataset.txt
 ---
 
 The following five steps are performed on the original data.
-1. Merge the training (x_train.txt) and the test (x_test.txt) sets to create one data set.
-2. Extract the mean and standard deviation for each measurement. Only variables that contain mean or std in their label are retained. The variable labels are taken from the features.txt file.
-3. 
-
-## 3. Use Descriptive Names for Activities
-colnames(dataset) <- features$V2[cols]
-
-
-## 4. Appropriately label the data set with descriptive activity names.
-labels_train <- read.table("UCI HAR Dataset/train/y_train.txt", header=FALSE)
-labels_test <- read.table("UCI HAR Dataset/test/y_test.txt", header=FALSE)
-labels_combined <- c(labels_train$V1, labels_test$V1)
-labels <- read.table("UCI HAR Dataset/activity_labels.txt", header=FALSE)
-dataset$activity <- labels$V2[labels_combined]
+# 1. Merge the training (x_train.txt) and the test (x_test.txt) sets to create one data set.
+# 2. Extract the mean and standard deviation for each measurement. Only variables that contain mean or std in their label are retained. The variable labels are taken from the features.txt file.
+# 3. The activitie names are taken from the second column of the features.txt file.
+# 4. Labels for the activities for the training (y_train.txt) and test (y_test.txt) subjects are applied to the data.
+# 5. The subjects ids are added for the training (subject_train.txt) and test (subject_test.txt) subjects. In addition, for each subject, the average value of each subject is extracted using the aggregate function to apply the mean function for each subject in the dataset.
 
 
-## 5. Create a tidy data set with the average of each variable for each activity and each subject.
-subject_train <- read.table("UCI HAR Dataset/train/subject_train.txt", header=FALSE)
-subject_test <- read.table("UCI HAR Dataset/test/subject_test.txt", header=FALSE)
-subject_combined <- c(subject_train$V1, subject_test$V1)
-dataset$subject <- subject_combined
-dataset_mean <- aggregate(x=dataset[,1:79], by=list(subject=as.factor(dataset$subject), activity=as.factor(dataset$activity)), FUN=mean)
+The data set can be loaded using the following call:
+read.table("tidy_dataset.txt", sep="\t", header=T, colClasses=c("character","factor", rep("numeric",79)))
+
